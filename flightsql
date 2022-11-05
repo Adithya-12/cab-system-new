@@ -1,0 +1,80 @@
+ CREATE TABLE passenger(
+ id int PRIMARY KEY auto_increment,
+    name varchar(50) not null,
+     username varchar(50) not null unique,
+     email varchar(50) not null unique,
+   password varchar(50) not null,
+   mobile_number int(10) not null unique,
+    address varchar(150) not null,
+     dob date
+);
+-- ----------------------------------------------------------------
+ creating table flights
+-- -----------------------------------------------------------------
+ CREATE TABLE flights(
+ flight_no int PRIMARY KEY not null,
+    flight_name varchar(30) not null,
+    flight_description varchar(100) not null,
+    flight_total_capacity int not null
+ );
+
+-- --------------------------------------------------------------------
+ creating table flight schedule
+-- ---------------------------------------------------------------------
+ CREATE TABLE flight_schedule(
+schedule_id int PRIMARY KEY  not null auto_increment,
+     flight_from varchar(50) not null,
+    flight_to varchar(50) not null,
+    flight_date date,
+    flight_time datetime,
+    cost int not null,
+    flight_no int,
+    CONSTRAINT FK_flight FOREIGN KEY(flight_no)
+    REFERENCES flights(flight_no)
+   
+   
+ );
+ 
+ create database flightmanagement;
+use flightmanagement;
+CREATE TABLE flight1(
+flight_no int PRIMARY KEY ,
+flight_name varchar(50) NOT NULL,
+flight_desc varchar(50),
+capacity int);
+
+CREATE TABLE passenger(
+id int PRIMARY KEY ,
+name varchar(50) NOT NULL,
+username varchar(50),
+email varchar(50),
+password varchar(50),
+mobile varchar(50) NOT NULL,
+address varchar(150),
+dob date);
+ drop table flight_schedule;
+create table flight_schedule(
+id int PRIMARY KEY NOT NULL,
+flight_from varchar(50),
+flight_to varchar(50),
+flight_date date,
+flight_time time,
+cost int,
+flight_number int,
+constraint FK_flight_flightno foreign key(flight_number) references flight1(flight_no)
+ );
+ 
+ create table booked_ticket(
+ticket_number  int PRIMARY KEY ,
+flight_from varchar(50),
+flight_to varchar(50),
+booking_date date,
+travel_date date,
+flight_time time,
+boarding_time time,
+flight_seat varchar(50),
+passenger_id int,
+flight_number int,
+constraint FK_booking_passengerid foreign key(passenger_id) references passenger(id),
+constraint FK_booking_flightno foreign key(flight_number) references flight1(flight_no)  
+ );
